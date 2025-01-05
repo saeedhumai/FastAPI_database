@@ -15,8 +15,10 @@ def get_db():
       yield db
    finally:
       db.close()
-
+dependency_intejection= Annotated[Session, Depends(get_db)]
 @app.get("/")
-async def read_all(db: Annotated[Session, Depends(get_db)]):
+async def read_all(db:dependency_intejection):
    return db.query(models.Todo).all()
+
+
 
